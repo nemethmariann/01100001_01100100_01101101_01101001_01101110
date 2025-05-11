@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin?</title>
+    <style>
+        body {
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+        }
+
+        #adminButton {
+            padding: 20px 40px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        #progressContainer {
+            width: 300px;
+            height: 20px;
+            border: 1px solid #ccc;
+            margin-top: 20px;
+            display: none;
+        }
+
+        #progressBar {
+            width: 0%;
+            height: 100%;
+            background-color: #4caf50;
+        }
+
+        #adminText, #dotsText, #yesText {
+            font-size: 32px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        #gifContainer {
+            margin-top: 20px;
+            display: none;
+        }
+
+        #gifContainer img {
+            max-width: 90vw;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <button id="adminButton">admin?</button>
+    <div id="progressContainer">
+        <div id="progressBar"></div>
+    </div>
+    <div id="adminText">admin.</div>
+    <div id="dotsText"></div>
+    <div id="yesText">ez amúgy egy igen</div>
+    <div id="gifContainer">
+        <img src="tuzijatek.gif" alt="Tűzijáték">
+    </div>
+
+    <script>
+        const button = document.getElementById('adminButton');
+        const progressContainer = document.getElementById('progressContainer');
+        const progressBar = document.getElementById('progressBar');
+        const adminText = document.getElementById('adminText');
+        const dotsText = document.getElementById('dotsText');
+        const yesText = document.getElementById('yesText');
+        const gifContainer = document.getElementById('gifContainer');
+
+        button.addEventListener('click', () => {
+            button.style.display = 'none';
+            progressContainer.style.display = 'block';
+
+            let width = 0;
+            const duration = 2000;
+            const intervalTime = 20;
+            const step = (intervalTime / duration) * 100;
+
+            const interval = setInterval(() => {
+                width += step;
+                progressBar.style.width = width + '%';
+                if (width >= 100) {
+                    clearInterval(interval);
+                    progressContainer.style.display = 'none';
+                    adminText.style.display = 'block';
+
+                    // Show dots step-by-step
+                    setTimeout(() => {
+                        dotsText.innerText = '.';
+                        dotsText.style.display = 'block';
+                        setTimeout(() => {
+                            dotsText.innerText = '..';
+                            setTimeout(() => {
+                                dotsText.innerText = '...';
+                                setTimeout(() => {
+                                    yesText.style.display = 'block';
+                                    gifContainer.style.display = 'block';
+                                }, 500);
+                            }, 500);
+                        }, 500);
+                    }, 500);
+                }
+            }, intervalTime);
+        });
+    </script>
+</body>
+</html>
